@@ -12,66 +12,62 @@ app.use(
 	})
 );
 
-app.get('/api/automatic-rotarty-phone', (req, res) => {
-	res.json({
-		user: {firstName:'John', lastName: 'Doe'},
-		sortingUserMethod: '',
-		showUserForm: false,
-		showProjectForm: false,
-		currentEmployeeId: undefined,
-		currentSearchTerm: '',
-		categoryFilter: '',
-		toggleNavbar: false,
-		automaticrotaryphone: [
+let userfiles = [
+	{
+		id: 0,
+		name: 'Jane',
+		role: 'Data Scientist',
+		bio: 'ready to help',
+		img: '',
+		reminders: [
 			{
 				id: 0,
-				name: 'Jack',
-				role: 'Data Scientist',
-				bio: 'Ready to help',
-				img: '',
-				reminders: [{
-					id: 0,
-					note: 'check on algo',
-					date: '2021-07-01',
-				},
-				{
-					id: 1,
-					note: 'Meeting',
-					date: '2021-07-01',
-				},
-				],
-				posts: [{
-					id: 0,
-					type: 'issue',
-					title: 'Something is broken.',
-					date: 'Fri Dec 14 2018',
-					description: 'It is not working',
-					log_img: '" alt="Screen-Shot-2018-12-31-at-8-30-37-AM'
-				},
-				{
-					id: 1,
-					type: 'resources',
-					title: 'Interview',
-					date: 'Fri July 1 2021',
-					skills: ['python', 'docker'],
-					degree: ['BA'],
-					previousJob: ['unknown'],
-					notes: 'Seems promising!',
-				}
-				]
-			}, {
+				note: 'meeting',
+				date: 2021-07-02
+			},
+			{
 				id: 1,
-				name: 'Jane',
-				role: 'Dev',
-				bio: 'Ready to help',
-				img: '',
-				reminders: [{
-					id: 0,
-					note: 'Give Shot',
-					date: 'Daily'
-				}, ]
-			}, ]
+				note: 'interview',
+				date: 2021-07-02
+			},
+		],
+	}
+];
+
+app.get('/api/userfiles', (req, res) => {
+	res.json({
+		userfiles: userfiles
 	});
+});
+
+app.get('/api:userfileId', (req, res, next) => {
+	let userfile = userfiles.find(userfile=>req.params.userfileId==userfile.id);
+	// console.log('in server, userfile is', userfile);
+	if (userfile) {
+		console.log('sending back response');
+		res.json({
+			userfile: userfile
+		});
+	} else {
+		console.log('jumping to error');
+		next();
+	}
+
+	});
+
+	// Custom Error Handler
+	app.use((err, req, res, next) => {
+		if (err.status) {
+			const errBody = Object.assign({}, err, {
+				message: err.message
+			});
+			res.status(err.status).json(errBody);
+		} else {
+			console.error(err);
+			res.status(500).json({
+				message: 'Internal Server Error'
+			});
+		}
 });
 
 app.listen(8080);
