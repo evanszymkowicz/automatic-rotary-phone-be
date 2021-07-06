@@ -1,5 +1,3 @@
-'use strict';
-
 const express = require('express');
 const cors = require('cors');
 const {CLIENT_ORIGIN} = require('./config');
@@ -23,15 +21,44 @@ let userfiles = [
 			{
 				id: 0,
 				note: 'meeting',
-				date: 2021-07-02
+				date: '2021-07-02'
 			},
 			{
 				id: 1,
 				note: 'interview',
-				date: 2021-07-02
+				date: '2021-07-02'
 			},
 		],
-	}
+		posts: [
+			{
+				id: 0,
+				type: 'action',
+				title: 'pushing to prod',
+				date: 'Tue July 6 2021',
+				description: 'This change is ready',
+				layers: ['UI', 'Database'],
+				post_img: ' ',
+				notes: 'Looks good!',
+			},
+			{
+				id: 1,
+				type: 'request',
+				title: 'pto',
+				date: 'Tue July 6 2021'
+			}
+		]
+	},
+	{
+		id: 1,
+		name: 'John',
+		bio: 'Ready to help',
+		img: 'https://i.ibb.co/stMyFMp/IMG-6267.png',
+		reminders: [{
+			id: 0,
+			note: 'meeting',
+			date: 'Daily'
+		}, ]
+	},
 ];
 
 app.get('/api/userfiles', (req, res) => {
@@ -55,7 +82,6 @@ app.get('/api:userfileId', (req, res, next) => {
 
 	});
 
-	// Custom Error Handler
 	app.use((err, req, res, next) => {
 		if (err.status) {
 			const errBody = Object.assign({}, err, {
