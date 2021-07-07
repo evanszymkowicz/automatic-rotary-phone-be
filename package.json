@@ -20,7 +20,9 @@
   "homepage": "https://github.com/evanszymkowicz/automatic-rotary-phone-be#readme",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mongoose": "^5.13.2",
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "eslint": "^7.29.0"

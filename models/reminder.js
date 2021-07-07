@@ -6,7 +6,7 @@ const reminderSchema = new mongoose.Schema({
 });
 
 reminderSchema.set('toJSON', {
-  virtuals: true,
+  virtuals: true,     // include built-in virtual `id`
   transform: (doc, ret) => {
     delete ret._id;
     delete ret.__v;
