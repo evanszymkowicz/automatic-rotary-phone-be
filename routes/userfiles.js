@@ -40,4 +40,57 @@ router.get('/:userfileId', (req, res, next) => {
 		});
 });
 
+/* ========== POST AND CREATE A USERFILE ========== */
+router.post('/', (req, res, next) => {
+	const newUserfile = req.body;
+	console.log('the new userfile is', newUserfile);
+	Userfile.create(newUserfile)
+		.then(userfile => {
+			res.location(`http://${req.headers.host}/api/userfiles/${userfile.id}`).status(201).json(userfile);
+		})
+		.catch(err => {
+			next(err);
+		});
+});
+
+/* ========== PUT/UPDATE A SINGLE USERFILE ========== */
+router.put('/:userfileId', (req, res, next) => {
+	const{ userfileId }= req.params;
+	const updatedUserfile = req.body;
+  
+	Userfile.findOneAndUpdate({_id: userfileId}, updatedUserfile, {new: true})
+		.populate('reminders')
+		.populate('posts')
+		.then(userfile => {
+			if(userfile){
+				console.log('userfile being sent back is', userfile);
+				res.status(200).json(userfile);
+			}
+			else{
+				next();
+			}
+		})
+		.catch(err => {
+			next(err);
+		});
+});
+
+router.delete('/:userfileId', (req, res, next) => {
+	const { userfileId } = req.params;
+
+	Userfile.findOneAndDelete({_id:userfileId})
+		.then((userfile) => {
+			if(!userfile){
+				// if trying to delete something that no longer exists
+				return next();
+			}
+			else{
+				res.sendStatus(204);
+			}
+		})
+		.catch(err => {
+			next(err);
+		});
+});
+
 module.exports = router;

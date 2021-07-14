@@ -6,14 +6,15 @@ const postSchema = new mongoose.Schema({
 	type: { type: String, required: true },
 	title: { type: String, required: true },
 	date: { type: String, required: true },
-	layers: [{type: String}],
 	description: { type: String}, 
 	post_img: { type: String },
 	notes: { type: String },
+	layers: [{type: String}],
 });
 
+//	Customize output for `res.json(data)`, `console.log(data)` etc.
 postSchema.set('toJSON', {
-	virtuals: true,
+	virtuals: true,	//	the virtual id
 	transform: (doc, ret) => {
 		delete ret._id;
 		delete ret._v;
