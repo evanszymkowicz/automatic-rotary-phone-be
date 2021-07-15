@@ -62,11 +62,10 @@ router.put('/:userfileId', (req, res, next) => {
 		.populate('reminders')
 		.populate('posts')
 		.then(userfile => {
-			if(userfile){
+			if (userfile) {
 				console.log('userfile being sent back is', userfile);
 				res.status(200).json(userfile);
-			}
-			else{
+			} else {
 				next();
 			}
 		})
@@ -75,16 +74,20 @@ router.put('/:userfileId', (req, res, next) => {
 		});
 });
 
+/* ========== DELETE/REMOVE A SINGLE ITEM ========== */
 router.delete('/:userfileId', (req, res, next) => {
-	const { userfileId } = req.params;
+	const {
+		userfileId
+	} = req.params;
 
-	Userfile.findOneAndDelete({_id:userfileId})
+	Userfile.findOneAndDelete({
+		_id: userfileId
+	})
 		.then((userfile) => {
-			if(!userfile){
-				// if trying to delete something that no longer exists
+			if (!userfile) {
+				// if trying to delete something that no longer exists or never did
 				return next();
-			}
-			else{
+			} else {
 				res.sendStatus(204);
 			}
 		})
@@ -92,5 +95,6 @@ router.delete('/:userfileId', (req, res, next) => {
 			next(err);
 		});
 });
+
 
 module.exports = router;
