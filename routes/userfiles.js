@@ -85,7 +85,7 @@ router.delete('/:userfileId', (req, res, next) => {
 	})
 		.then((userfile) => {
 			if (!userfile) {
-				// if trying to delete something that no longer exists or never did
+				// if trying to delete something that no longer exists
 				return next();
 			} else {
 				res.sendStatus(204);
@@ -95,6 +95,5 @@ router.delete('/:userfileId', (req, res, next) => {
 			next(err);
 		});
 });
-
 
 module.exports = router;

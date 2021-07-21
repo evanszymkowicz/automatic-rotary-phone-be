@@ -2,6 +2,5 @@
 
 module.exports = {
 	CLIENT_ORIGIN: process.env.CLIENT_ORIGIN || 'http://localhost:3000',
-	MONGODB_URI: process.env.MONGODB_URI || '',
-	PORT: process.env.PORT || 8080,
+	MONGODB_URI: process.env.MONGODB_URI
 };

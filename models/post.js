@@ -8,11 +8,13 @@ const postSchema = new mongoose.Schema({
 	date: { type: String, required: true },
 	description: { type: String}, 
 	post_img: { type: String },
+	flags: [{ type: String }],
+	instructions: [{ stype: String }],
+	lead: { type: String },
 	notes: { type: String },
-	layers: [{type: String}],
 });
 
-//	Customize output for `res.json(data)`, `console.log(data)` etc.
+//	output for `res.json(data)`
 postSchema.set('toJSON', {
 	virtuals: true,	//	the virtual id
 	transform: (doc, ret) => {
