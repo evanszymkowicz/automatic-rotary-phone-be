@@ -11,8 +11,8 @@ const router = express.Router();
 
 router.get('/', (req, res, next) => {
 	Userfile.find()
-		.populate('reminders')
-		.populate('posts')
+		// .populate('reminders')
+		// .populate('posts')
 		.then(userfiles => {
 			res.json(userfiles);
 		})
@@ -95,5 +95,25 @@ router.delete('/:userfileId', (req, res, next) => {
 			next(err);
 		});
 });
+
+/* ========== POST AND CREATE A USERFILE ========== */
+router.get('/seed-me-papi', (req, res, next) => {
+	res.status(200).json({ message: 'oooh papi thank you >w<' });
+	// Userfile.findOne({_id: userfileId})
+	// 	.populate('reminders')
+	// 	.populate('posts')
+	// 	.then(userfile => {
+	// 		if(userfile){
+	// 			res.json(userfile);
+	// 		}
+	// 		else {
+	// 			next();
+	// 		}
+	// 	})
+	// 	.catch(err => {
+	// 		next(err);
+	// 	});
+});
+
 
 module.exports = router;
