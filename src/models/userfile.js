@@ -2,7 +2,7 @@
 
 const mongoose = require('mongoose');
 
-const userfileSchema = new mongoose.Schema ({
+const userfileSchema = new mongoose.Schema({
 	name: { type: String, required: true },
 	role: { type: String, required: true },
 	img: { type: Object, required: true},
